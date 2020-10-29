@@ -1,4 +1,7 @@
 from lib.utilities import eprint
+from lib.data import file_exists, dataLoad
+
+from os import getcwd
 
 """
 NOTE: Errors, warnings, and notes are output to stderr as usual so make sure you can read stderr.
@@ -15,6 +18,9 @@ TODO: Write function documentation
 """
 
 
-
-eprint("test me")
+file_path = "dataset.txt"
+if file_exists(file_path):
+      print(dataLoad(file_path))
+else:
+      print("nope")
 

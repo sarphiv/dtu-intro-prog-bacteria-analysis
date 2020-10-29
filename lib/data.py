@@ -1,4 +1,4 @@
-from utilities import eprint
+from lib.utilities import eprint
 import numpy as np
 from os.path import exists, isfile
 
@@ -15,7 +15,7 @@ def file_exists(file_path):
     """
     Returns whether a file path leads to a file
     """
-    return not exists(file_path) or not isfile(file_path)
+    return exists(file_path) and isfile(file_path)
 
 
 def parse_entry(entry):
@@ -28,7 +28,7 @@ def parse_entry(entry):
 
 
     #Ensure data shape is valid
-    parsed = entry.split(' ')
+    parsed = entry.strip().split(' ')
     
     if len(parsed) != 3:
         return error("Entries must have 3 elements separated by spaces")
@@ -62,7 +62,7 @@ def dataLoad(filename):
     Loads data from a file and returns a numpy array with shape (-1,3): [[temperature, growth_rate, species], ...]
     Skips invalid entries and outputs them to stderr.
     """
-    
+
     #Load and immediately close file
     with open(filename, mode='r') as file:
         lines = file.readlines()
@@ -78,7 +78,7 @@ def dataLoad(filename):
             data.append(parsed)
         #Else, output failure
         else:
-            eprint(f'Failed parsing line {i} with error "{error}" and with data "{entry}"')
+            eprint(f'Failed parsing line {i} with error "{error}" and with data "{entry.rstrip()}"')
             continue
 
 
