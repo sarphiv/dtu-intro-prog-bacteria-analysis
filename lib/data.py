@@ -20,7 +20,7 @@ def file_exists(file_path):
 
 def parse_entry(entry):
     """
-    Parses a line string from a dataset and returns an array [temperature, growth_rate, species]
+    Parses a line string from a dataset and returns ([temperature, growth_rate, species]?, error_msg?)
     """
     #Helper functions for returning errors and success
     error = lambda message: (None, message)
@@ -49,6 +49,7 @@ def parse_entry(entry):
     #Validate growth rate range
     if growth_rate <= 0:
         return error("Growth rate must be a positive number")
+    #Validate species
     if species not in bacteria_species:
         return error("Bacteria species is unknown")
 
