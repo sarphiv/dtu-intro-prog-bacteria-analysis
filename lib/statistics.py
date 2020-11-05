@@ -1,3 +1,5 @@
+from lib.data import bacteria_species
+
 #Isolate temperature from each row
 get_temperature = lambda data: data[:, 0]
 #Isolate growth rate from each row
@@ -19,15 +21,24 @@ statistic_functions = {
     #Get length of first dimension (rows) of data
     "rows":                  lambda data: data.shape[0],
     #Get mean growth rate of rows with temperature below 20
-    "mean cold growth rate": lambda data: dataStatistics(
-                                              data[get_temperature(data) < 20],
-                                              "mean growth rate"
-                                          ),
+    "mean cold growth rate": lambda data: 
+        dataStatistics(
+            data[get_temperature(data) < 20],
+            "mean growth rate"
+        ),
     #Get mean growth rate of rows with temperature above 50
-    "mean hot growth rate":  lambda data: dataStatistics(
-                                              data[get_temperature(data) > 50],
-                                              "mean growth rate"
-                                          )
+    "mean hot growth rate":  lambda data: 
+        dataStatistics(
+            data[get_temperature(data) > 50],
+            "mean growth rate"
+        ),
+    #Number of each species as a dictionary {species: number}
+    "rows by species":       lambda data: { 
+            species: dataStatistics(
+                data[get_species(data) == species], 
+                "rows") 
+            for species in bacteria_species.keys()
+        }
 }
 
 
@@ -35,13 +46,14 @@ def dataStatistics(data, statistic):
     """
     Calculate statistics on the provided data and returns the result.
     The statistic should be given as a string being one of (case sensitive):
-        'mean temperature',
-        'mean growth rate',
-        'std temperature',
-        'std growth rate',
-        'rows',
-        'mean cold growth rate',
-        'mean hot growth rate'
+        "mean temperature",
+        "mean growth rate",
+        "std temperature",
+        "std growth rate",
+        "rows",
+        "mean cold growth rate",
+        "mean hot growth rate",
+        "rows by species"
     """
     #Get appropriate statistic function with string.
     # Apply function on data entries

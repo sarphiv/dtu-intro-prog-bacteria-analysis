@@ -2,6 +2,7 @@
 from lib.utilities import eprint
 from lib.data import file_exists, dataLoad
 from lib.statistics import statistic_functions
+from lib.plot import dataPlot
 
 from os import getcwd
 
@@ -17,6 +18,8 @@ NOTE: Some functions do not adhere to PEP-8.
 
 """
 TODO: Write function documentation
+
+TODO: We probably need to sort the loaded data  in dataset though
 """
 
 #%%
@@ -26,6 +29,6 @@ if file_exists(file_path):
 else:
       print("nope")
 #%%
-print(statistic_functions["mean hot growth rate"](data))
 
+dataPlot(data)
 # %%
