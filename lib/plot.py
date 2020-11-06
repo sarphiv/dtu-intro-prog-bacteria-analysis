@@ -27,10 +27,10 @@ def draw_bar_plot(fig, key_value):
     fig.set_xlabel("Species", **axis_label_style)
     fig.set_ylabel("Number of bacteria", **axis_label_style)
 
-    #Rotate x-axis tick labels
+    #Rotate x-axis tick labels and set font size
     for label in fig.get_xticklabels():
-        label.set_fontsize(9)
         label.set_rotation(12)
+        label.set_fontsize(9)
 
 
 def draw_line_graph(fig, x, y, name):
@@ -80,7 +80,7 @@ def dataPlot(data):
     #NOTE: Sorts by getting a sorted array of indexes for the temperature column,
     # then accesses the original array in the order of the sorted indexes.
     species_temp_grow = dataStatistics(data, "temperature and growth rate by species")
-    species_temp_grow = { s: e[e[:, 0].argsort()] for s, e in species_temp_grow.items()}
+    species_temp_grow = { s: e[get_temperature(e).argsort()] for s, e in species_temp_grow.items() }
 
 
     #Draw number plot

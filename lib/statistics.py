@@ -48,7 +48,7 @@ statistic_functions = {
             species: data[get_species(data) == species]
             for species in bacteria_species.keys()
         },
-    
+
     #Amount of each species keyed by species {species: number}
     "rows by species":        lambda data: { 
             species: dataStatistics(entries, "rows")
@@ -66,11 +66,23 @@ statistic_functions = {
             species: get_growth_rate(entries)
             for species, entries in dataStatistics(data, "data by species").items()
         },
+    
     #Temperature and growth rate keyed by species
     "temperature and growth rate by species": lambda data: { 
             species: entries[:, 0:2]
             for species, entries in dataStatistics(data, "data by species").items()
         },
+}
+
+
+statistic_descriptions = {
+    "mean temperature": "Mean temperature of all species",
+    "mean growth rate": "Mean growth rate of all species",
+    "std temperature": "Standard deviation of temperature of all species",
+    "std growth rate": "Standard deviation of growth rate of all species",
+    "rows": "Amount of rows in the data",
+    "mean cold growth rate": "Mean growth rate of all species with a temperature below 20",
+    "mean hot growth rate": "Mean growth rate of all species with a temperature above 50"
 }
 
 
