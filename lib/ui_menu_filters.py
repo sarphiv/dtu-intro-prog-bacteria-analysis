@@ -12,7 +12,7 @@ def display_filters_add_scalar_menu(state, filters_menu, scalar_getter, scalar_n
     (min, max) = prompt_range()
     state.filters.add_filter_scalar(scalar_getter, scalar_name, min, max)
     
-    state.filtered_data = state.filters.filter_data(state.raw_data)
+    state.filtered_data = state.filters.apply(state.raw_data)
     
     display_filters_menu(state, filters_menu)
 
@@ -25,7 +25,7 @@ def display_filters_add_species_menu(state, filters_menu):
            state.filters.as_descriptions(), 
            msg="Choose species to include")
     
-    state.filtered_data = state.filters.filter_data(state.raw_data)
+    state.filtered_data = state.filters.apply(state.raw_data)
     
     display_filters_menu(state, filters_menu)
 
@@ -44,6 +44,6 @@ def display_filters_remove_menu(state, filters_menu):
     options = [(desc, remove_filter_func(i)) for i, desc in enumerate(descriptions)]
     prompt(options, msg="Choose filter to remove")
 
-    state.filtered_data = state.filters.filter_data(state.raw_data)
+    state.filtered_data = state.filters.apply(state.raw_data)
 
     display_filters_menu(state, filters_menu)

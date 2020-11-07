@@ -13,7 +13,7 @@ def display_load_data_menu(state):
         state.raw_data = dataLoad(data_path)
         print("Loaded data")
 
-        state.filtered_data = state.filters.filter_data(state.raw_data)
+        state.filtered_data = state.filters.apply(state.raw_data)
 
         prompt_continue()
     else:

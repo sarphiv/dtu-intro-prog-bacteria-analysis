@@ -15,7 +15,7 @@ class Filters:
     
     (filter_function, filter_description)
     
-    There two filter groups. 
+    There are two filter groups. 
         More filters in the scalar group creates a more restrictive filter.
         More filters in the species group creates a laxer filter,
         allowing for selection of multiple species.
@@ -47,7 +47,7 @@ class Filters:
         return [description for _, description in self.as_array()]
 
 
-    def filter_data(self, data):
+    def apply(self, data):
         """
         Filters the data based on the currently active filters
         """
@@ -55,9 +55,7 @@ class Filters:
         if check_data_unavailable(data):
             return []
 
-        #AND all filter groups together
-        #species filter group is inclusive inside of group (OR species together)
-        
+
         #Initialize scalar group to select for all entries via a boolean array
         scalar_indexes = np.ones(len(data), dtype=bool)
         #Run each filter on the data and restrict the scalar group selection
