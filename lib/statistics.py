@@ -19,30 +19,30 @@ to functions that do that exact calculation.
 # It is assumed the input data is given as a numpy array.
 statistic_functions = {
     #Get mean of temperature
-    "mean temperature":       lambda data: 
+    "mean temperature": lambda data: 
         get_temperature(data).mean(),
 
     #Get mean of growth rate
-    "mean growth rate":       lambda data: 
+    "mean growth rate": lambda data: 
         get_growth_rate(data).mean(),
 
     #Get standard deviation of temperature
-    "std temperature":        lambda data: 
+    "std temperature": lambda data: 
         get_temperature(data).std(),
 
     #Get standard deviation of growth rate
-    "std growth rate":        lambda data: 
+    "std growth rate": lambda data: 
         get_growth_rate(data).std(),
 
     #Get length of first dimension (rows) of data
-    "rows":                   lambda data: 
+    "rows": lambda data: 
         data.shape[0],
 
     #Get mean growth rate of rows with temperature below 20,
     # by filtering out entries with temperatures above 20,
     # and then calling the data statistics function
     # on the filtered data
-    "mean cold growth rate":  lambda data: 
+    "mean cold growth rate": lambda data: 
         dataStatistics(
             data[get_temperature(data) < 20],
             "mean growth rate"
@@ -52,7 +52,7 @@ statistic_functions = {
     # by filtering out entries with temperatures below 50,
     # and then calling the data statistics function
     # on the filtered data
-    "mean hot growth rate":   lambda data: 
+    "mean hot growth rate": lambda data: 
         dataStatistics(
             data[get_temperature(data) > 50],
             "mean growth rate"
@@ -60,13 +60,13 @@ statistic_functions = {
 
     #Data keyed by species.
     # Groups rows/entries into a dictionary keyed by species
-    "data by species":        lambda data: { 
+    "data by species": lambda data: { 
             species: data[get_species(data) == species]
             for species in bacteria_species.keys()
         },
 
     #Amount of rows/entries keyed by species {species: number, ...}
-    "rows by species":        lambda data: { 
+    "rows by species": lambda data: { 
             species: dataStatistics(entries, "rows")
             for species, entries in dataStatistics(data, "data by species").items()
         },
