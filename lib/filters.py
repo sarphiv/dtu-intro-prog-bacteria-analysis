@@ -5,7 +5,7 @@ from lib.data import bacteria_species
 import numpy as np
 
 
-def empty_filter():
+def empty_filters():
     return [[], []]
 
 def filters_to_array(filters):

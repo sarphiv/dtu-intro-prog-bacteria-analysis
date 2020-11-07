@@ -7,7 +7,8 @@ def eprint(*args, **kwargs):
     and then redirects the output to "stderr".
     """
     print(*args, file=stderr, **kwargs)
-    
+
+
 def parse_int(string):
     """
     Attempts parsing a string to an int to then return it.

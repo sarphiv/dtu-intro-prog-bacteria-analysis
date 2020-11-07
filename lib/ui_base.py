@@ -86,7 +86,7 @@ def prompt_range(status = [], msg = None, inline_msg = None):
             continue
 
         #Prompt for maximum value
-        print(coalesce_default_msg(msg, "Input maximum (exclusive) value:"), end='')
+        print(coalesce_default_msg(msg, "Input maximum (exclusive) value:"))
         raw_max = input(coalesce_inline_msg(inline_msg))
         
         parsed_max = parse_float(raw_max)

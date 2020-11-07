@@ -1,6 +1,10 @@
 from lib.ui_base import prompt_continue
 
 
+def display_previous_menu():
+    pass
+
+
 def check_data_unavailable(data):
     """
     Returns true if data is unavailable or empty, else returns false.
