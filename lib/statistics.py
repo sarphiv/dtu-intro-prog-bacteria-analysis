@@ -1,14 +1,22 @@
 from lib.data import bacteria_species
 
+
 #Isolate temperature from each row
 get_temperature = lambda data: data[:, 0]
 #Isolate growth rate from each row
 get_growth_rate = lambda data: data[:, 1]
 #Isolate species from each row
 get_species     = lambda data: data[:, 2]
+#Isolate temperature and growth rate from each row
+get_temperature_growth_rate = lambda data: data[:, 0:2]
 
 
-#Dictionary mapping from statistic operation name to function
+"""
+A dictionary mapping strings of statistical calculation names
+to functions that do that exact calculation.
+"""
+#Dictionary mapping from statistic operation name to function.
+# It is assumed the input data is given as a numpy array.
 statistic_functions = {
     #Get mean of temperature
     "mean temperature":       lambda data: 
@@ -27,54 +35,63 @@ statistic_functions = {
         get_growth_rate(data).std(),
 
     #Get length of first dimension (rows) of data
-    "rows":                   lambda data: data.shape[0],
+    "rows":                   lambda data: 
+        data.shape[0],
 
-    #Get mean growth rate of rows with temperature below 20
+    #Get mean growth rate of rows with temperature below 20,
+    # by filtering out entries with temperatures above 20,
+    # and then calling the data statistics function
+    # on the filtered data
     "mean cold growth rate":  lambda data: 
         dataStatistics(
             data[get_temperature(data) < 20],
             "mean growth rate"
         ),
 
-    #Get mean growth rate of rows with temperature above 50
+    #Get mean growth rate of rows with temperature above 50,
+    # by filtering out entries with temperatures below 50,
+    # and then calling the data statistics function
+    # on the filtered data
     "mean hot growth rate":   lambda data: 
         dataStatistics(
             data[get_temperature(data) > 50],
             "mean growth rate"
         ),
 
-    #Data keyed by species
+    #Data keyed by species.
+    # Groups rows/entries into a dictionary keyed by species
     "data by species":        lambda data: { 
             species: data[get_species(data) == species]
             for species in bacteria_species.keys()
         },
 
-    #Amount of each species keyed by species {species: number}
+    #Amount of rows/entries keyed by species {species: number, ...}
     "rows by species":        lambda data: { 
             species: dataStatistics(entries, "rows")
             for species, entries in dataStatistics(data, "data by species").items()
         },
 
-    #Temperature keyed by species
+    #Temperature keyed by species {species: [[temperature], ...], ...}
     "temperature by species": lambda data: { 
             species: get_temperature(entries)
             for species, entries in dataStatistics(data, "data by species").items()
         },
 
-    #Growth rate keyed by species
+    #Growth rate keyed by species {species: [[growth_rate], ...], ...}
     "growth rate by species": lambda data: { 
             species: get_growth_rate(entries)
             for species, entries in dataStatistics(data, "data by species").items()
         },
     
-    #Temperature and growth rate keyed by species
+    #Temperature and growth rate keyed by species {species: [[temperature, growth_rate], ...], ...}
     "temperature and growth rate by species": lambda data: { 
-            species: entries[:, 0:2]
+            species: get_temperature_growth_rate(entries)
             for species, entries in dataStatistics(data, "data by species").items()
         },
 }
 
 
+#Dictionary mapping statistic operation name to a description of the operation.
 statistic_descriptions = {
     "mean temperature": "Mean temperature of all species",
     "mean growth rate": "Mean growth rate of all species",
@@ -103,6 +120,5 @@ def dataStatistics(data, statistic):
         "growth rate by species",
         "temperature and growth rate by species"
     """
-    #Get appropriate statistic function with string.
-    # Apply function on data entries
+    #Get requested statistic function, and then apply the function on data entries
     return statistic_functions[statistic](data)

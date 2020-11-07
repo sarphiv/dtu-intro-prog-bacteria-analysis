@@ -15,7 +15,6 @@ NOTE: Errors, warnings, and notes are output to stderr as usual so make sure you
 NOTE: Some functions do not adhere to PEP-8. 
       The names and parameters are part of an interface specification not adhering to PEP-8.
 NOTE: Function docstrings attempt adherence to PEP-257 (although, a very lousy attempt).
-
 """
 
 

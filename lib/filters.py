@@ -1,4 +1,4 @@
-from lib.ui_utilities import check_data_unavailable, inform_if_data_unavailable
+from lib.ui_utilities import check_data_unavailable
 from lib.statistics import get_temperature, get_growth_rate, get_species
 from lib.data import bacteria_species
 
@@ -56,26 +56,10 @@ def filter_scalar(scalar_data, min, max):
 
 def add_filter_temperature(filters, min, max):
     add_filter_scalar(filters, get_temperature, "temperatures", min, max)
-    # filters[0].append((
-    #     lambda data: filter_temperature(data, min, max),
-    #     f"Filtering for temperatures in the range [{min}, {max}["))
-    
-# def filter_temperature(data, min, max):
-#     temperatures = get_temperature(data)
-
-#     return (min <= temperatures) & (temperatures < max)
 
 
 def add_filter_growth_rate(filters, min, max):
     add_filter_scalar(filters, get_growth_rate, "growth rates", min, max)
-    # filters[0].append((
-    #     lambda data: filter_growth_rate(data, min, max),
-    #     f"Filtering for growth rates in the range [{min}, {max}["))
-    
-# def filter_growth_rate(data, min, max):
-#     growth_rates = get_growth_rate(data)
-
-#     return (min <= growth_rates) & (growth_rates < max)
 
 
 def add_filter_species(filters, species):

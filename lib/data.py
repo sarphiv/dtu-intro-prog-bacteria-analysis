@@ -3,6 +3,9 @@ import numpy as np
 from os.path import exists, isfile
 
 
+#Define allowed bacteria species
+#NOTE: Using dictionary instead of list as it fits the purpose of checking for existence better
+# - although at 4 entries a dictionary is much, much slower.
 bacteria_species = {
     1: "Salmonella enterica",
     2: "Bacillus cereus",
@@ -20,11 +23,13 @@ def file_exists(file_path):
 
 def parse_entry(entry):
     """
-    Parses a line string from a dataset and returns ([temperature, growth_rate, species]?, error_msg?)
+    Parses a line string from a dataset and returns ([temperature, growth_rate, species]?, error_msg?).
+    If parsing succeeded, the parsed data is provided.
+    If parsing failed, an error message is provided.
     """
-    #Helper functions for returning errors and success
-    error = lambda message: (None, message)
+    #Utility functions for returning success and error
     success = lambda entry: (entry, None)
+    error = lambda message: (None, message)
 
 
     #Ensure data shape is valid
@@ -32,8 +37,10 @@ def parse_entry(entry):
     
     if len(parsed) != 3:
         return error("Entries must have 3 elements separated by spaces")
-
+    
+    #Deconstruct list into individual variables
     [temperature, growth_rate, species] = parsed
+
 
     #Parse data types
     try:
@@ -62,6 +69,8 @@ def dataLoad(filename):
     """
     Loads data from a file and returns a numpy array with shape (-1,3): [[temperature, growth_rate, species], ...]
     Skips invalid entries and outputs them to stderr.
+    
+    REMARK: Does not check for existence of file. Check before calling this function.
     """
 
     #Load and immediately close file
