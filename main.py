@@ -14,19 +14,25 @@ from sys import exit
 NOTE: Errors, warnings, and notes are output to stderr as usual so make sure you can read stderr.
 NOTE: Some functions do not adhere to PEP-8. 
       The names and parameters are part of an interface specification not adhering to PEP-8.
-NOTE: Function docstrings attempt adherence to PEP-257 (although, a very lousy attempt).
+NOTE: Function docstrings attempt adherence to PEP-257 (although, a not the best attempt).
+      Function signature is therefore not reiterated as it is deemed un-pythonic and a bad habit.
 """
 
 
-
 """
-TODO: Describe overall structure of program
-TODO: Write function documentation
-TODO: Describe why our filter limits are inclusive/exclusive
+The program consists of a UI layer based off of CLI menus.
+Choosing an option in a menu, executes the option's associated code.
+This code may show another menu, change program state, or process and output the data.
+
+The vast majority of the program code is found in the "lib" folder.
+    The "dataLoad" function is in "lib/data.py"
+    The "dataStatistics" funtion is in "lib/statistics.py"
+    The "dataPlot" function is in "lib/plot.py"
+
+
+No author for the different files have been specified,
+as this project group only consists of one person.
 """
-
-
-
 
 
 """
