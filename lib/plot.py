@@ -85,13 +85,14 @@ def dataPlot(data):
 
     #Draw number plot
     draw_bar_plot(fig_num, species_num)
-    
+
     #Draw growth-temperature plots for each species
     for species, entries in species_temp_grow.items():
-        draw_line_graph(fig_growth, 
-                        x=get_temperature(entries),
-                        y=get_growth_rate(entries), 
-                        name=bacteria_species[species])
+        if len(entries) > 0:
+            draw_line_graph(fig_growth,     
+                            x=get_temperature(entries),
+                            y=get_growth_rate(entries), 
+                            name=bacteria_species[species]) 
 
 
     #Show finished plot
