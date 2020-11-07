@@ -1,6 +1,5 @@
 from lib.ui_base import prompt_continue, prompt
 from lib.ui_utilities import inform_if_data_unavailable
-from lib.filters import filters_to_descriptions
 from lib.statistics import statistic_descriptions, dataStatistics
 
 
@@ -8,7 +7,7 @@ def display_statistics_menu(state, menu):
     if inform_if_data_unavailable(state.filtered_data):
         return
     
-    prompt(menu, filters_to_descriptions(state.filters))
+    prompt(menu, state.filters.as_descriptions())
 
 
 def display_statistic(state, statistics_menu, statistic):

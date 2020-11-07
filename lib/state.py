@@ -1,4 +1,4 @@
-from lib.filters import empty_filters
+from lib.filters import Filters
 
 
 class State:
@@ -12,4 +12,4 @@ class State:
         self.raw_data = None
         self.filtered_data = None
 
-        self.filters = empty_filters()
+        self.filters = Filters()
