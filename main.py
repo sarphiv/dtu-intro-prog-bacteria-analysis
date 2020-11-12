@@ -30,9 +30,32 @@ The vast majority of the program code is found in the "lib" folder.
     The "dataPlot" function is in "lib/plot.py"
 
 
-No author for the different files have been specified,
-as this project group only consists of one person.
+This file is the entrypoint of the program.
+Here the various menus and their associated functionality is defined.
+Once the program state and menus have been defined, the main menu is shown.
+
+Choosing an option then calls various functions in the "lib" folder.
+The files prefixed with "ui_" do not deal with business logic.
+They merely handle the coupling of the UI code with the business logic.
+
+The project is structured this way as it decouples the UI from the business logic.
+This allows the base UI code to be fully reused for the next project.
+It also allows the UI to easily be defined and changed as shown in this file.
+
+The code makes heavy use of functions as first class citizens.
+Being comfortable with functional programming is therefore recommended.
+
+The business logic is mostly decoupled from each other.
+This makes the program less fragile to modifications as a change one place,
+is less likely to mess up something somewhere else.
+It is advised to explore the program by following the call stack of executing one feature.
+An IDE that can automatically show docstrings as a pop up on hover is strongly recommended,
+as the documentation has been written with this in mind.
+
+
+No author for the different files have been specified as there is only one.
 """
+
 
 
 """
